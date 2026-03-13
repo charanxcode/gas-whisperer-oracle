@@ -5,6 +5,7 @@ import { WebSocketProvider } from '@/lib/websocket-provider';
 import { UniswapV3PriceOracle } from '@/lib/price-oracle';
 import { calculateGasCost, generateMockGasPrice } from '@/lib/gas-utils';
 import { ChartDataPoint, SimulationCost, ChainName } from '@/types/gas';
+import { PROVIDER_ENDPOINTS, config } from '@/config/providers';
 
 import { ErrorNotifications } from './ErrorNotifications';
 import { GasPriceCard } from './GasPriceCard';
@@ -20,10 +21,10 @@ export const GasTracker: React.FC = () => {
 
   // Initialize WebSocket connections and price oracle
   useEffect(() => {
-    const rpcEndpoints = {
-      ethereum: 'wss://mainnet.infura.io/ws/v3/YOUR_PROJECT_ID',
-      polygon: 'wss://polygon-mainnet.infura.io/ws/v3/YOUR_PROJECT_ID',
-      arbitrum: 'wss://arbitrum-mainnet.infura.io/ws/v3/YOUR_PROJECT_ID'
+    const rpcEndpoints: Record<string, string> = {
+      ethereum: PROVIDER_ENDPOINTS.ethereum.wsUrl,
+      polygon: PROVIDER_ENDPOINTS.polygon.wsUrl,
+      arbitrum: PROVIDER_ENDPOINTS.arbitrum.wsUrl
     };
 
     // Initialize WebSocket providers (simulated for demo)
@@ -72,7 +73,7 @@ export const GasTracker: React.FC = () => {
         console.error('Error updating ETH/USD price:', error);
         actions.addError({ message: 'Failed to update ETH/USD price', type: 'error' });
       }
-    }, 10000); // Update every 10 seconds
+    }, config.intervals.priceUpdate);
 
     intervalsRef.current.priceUpdate = priceInterval;
 
@@ -93,7 +94,7 @@ export const GasTracker: React.FC = () => {
           });
         });
       }
-    }, 6000); // Update every 6 seconds
+    }, config.intervals.gasUpdate);
 
     intervalsRef.current.gasUpdate = gasUpdateInterval;
 

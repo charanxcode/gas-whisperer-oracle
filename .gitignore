@@ -1,3 +1,8 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
 # Logs
 logs
 *.log
@@ -18,6 +23,41 @@ dist-ssr
 .idea
 .DS_Store
 *.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.vscode
+
+# IDE
+.idea
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Build files
+.out
+
+# Docker
+docker-compose.override.yml
+
+# Testing
+coverage
+.nyc_output
+
 *.ntvs*
 *.njsproj
 *.sln
